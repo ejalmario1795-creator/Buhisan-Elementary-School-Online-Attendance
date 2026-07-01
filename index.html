@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Buhisan Elementary School Online Attendance</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="hero">
+    <div>
+      <p class="small-title">Department of Education</p>
+      <h1>Buhisan Elementary School</h1>
+      <p class="subtitle">Online Attendance Monitoring System</p>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="card notice">
+      <strong>Reminder:</strong> This free version stores records only in the current browser using localStorage. For official school-wide use, connect it later to Google Sheets, Firebase, or a secure database.
+    </section>
+
+    <section class="grid">
+      <form id="attendanceForm" class="card form-card">
+        <h2>Attendance Form</h2>
+
+        <label for="employeeName">Name</label>
+        <input type="text" id="employeeName" placeholder="Enter full name" required />
+
+        <label for="role">Role / Position</label>
+        <select id="role" required>
+          <option value="">Select role</option>
+          <option>School Head</option>
+          <option>Administrative Officer II</option>
+          <option>Teacher</option>
+          <option>Non-Teaching Personnel</option>
+          <option>Utility / Support Staff</option>
+          <option>Visitor</option>
+        </select>
+
+        <label for="date">Date</label>
+        <input type="date" id="date" required />
+
+        <label for="timeIn">Time In</label>
+        <input type="time" id="timeIn" required />
+
+        <label for="timeOut">Time Out</label>
+        <input type="time" id="timeOut" />
+
+        <label for="status">Status</label>
+        <select id="status" required>
+          <option>Present</option>
+          <option>Late</option>
+          <option>Official Business</option>
+          <option>On Leave</option>
+          <option>Absent</option>
+        </select>
+
+        <label for="remarks">Remarks</label>
+        <textarea id="remarks" rows="3" placeholder="Optional remarks"></textarea>
+
+        <button type="submit">Submit Attendance</button>
+      </form>
+
+      <section class="card dashboard-card">
+        <h2>Attendance Dashboard</h2>
+        <div class="stats">
+          <div><span id="totalCount">0</span><small>Total Records</small></div>
+          <div><span id="presentCount">0</span><small>Present</small></div>
+          <div><span id="lateCount">0</span><small>Late</small></div>
+        </div>
+
+        <div class="controls">
+          <input type="text" id="searchInput" placeholder="Search name, role, or status" />
+          <button type="button" id="exportBtn">Export CSV</button>
+          <button type="button" id="clearBtn" class="danger">Clear Records</button>
+        </div>
+
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Date</th>
+                <th>Name</th>
+                <th>Role</th>
+                <th>Time In</th>
+                <th>Time Out</th>
+                <th>Status</th>
+                <th>Remarks</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody id="recordsTable"></tbody>
+          </table>
+        </div>
+      </section>
+    </section>
+  </main>
+
+  <footer>
+    <p>© 2026 Buhisan Elementary School | Online Attendance Template</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

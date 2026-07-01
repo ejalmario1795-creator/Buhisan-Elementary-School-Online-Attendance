@@ -1,0 +1,185 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  background: #f4f7fb;
+  color: #1f2937;
+}
+
+.hero {
+  background: linear-gradient(135deg, #064e3b, #047857);
+  color: white;
+  padding: 36px 24px;
+  text-align: center;
+}
+
+.small-title {
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-size: 13px;
+  opacity: 0.9;
+}
+
+h1 {
+  margin: 8px 0;
+  font-size: 34px;
+}
+
+.subtitle {
+  margin: 0;
+  font-size: 17px;
+}
+
+.container {
+  width: min(1200px, 94%);
+  margin: 24px auto;
+}
+
+.card {
+  background: white;
+  border-radius: 16px;
+  padding: 22px;
+  box-shadow: 0 10px 25px rgba(15, 23, 42, 0.08);
+}
+
+.notice {
+  margin-bottom: 20px;
+  border-left: 6px solid #047857;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 360px 1fr;
+  gap: 20px;
+  align-items: start;
+}
+
+h2 {
+  margin-top: 0;
+  color: #064e3b;
+}
+
+label {
+  display: block;
+  font-weight: bold;
+  margin: 14px 0 6px;
+}
+
+input, select, textarea {
+  width: 100%;
+  padding: 11px;
+  border: 1px solid #cbd5e1;
+  border-radius: 10px;
+  font-size: 15px;
+}
+
+button {
+  margin-top: 16px;
+  padding: 11px 16px;
+  border: none;
+  border-radius: 10px;
+  background: #047857;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #065f46;
+}
+
+button.danger {
+  background: #dc2626;
+}
+
+button.danger:hover {
+  background: #991b1b;
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-bottom: 18px;
+}
+
+.stats div {
+  background: #ecfdf5;
+  border-radius: 14px;
+  padding: 18px;
+  text-align: center;
+}
+
+.stats span {
+  display: block;
+  font-size: 30px;
+  font-weight: bold;
+  color: #047857;
+}
+
+.stats small {
+  color: #475569;
+}
+
+.controls {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+.controls input {
+  flex: 1;
+}
+
+.controls button {
+  margin-top: 0;
+  white-space: nowrap;
+}
+
+.table-wrap {
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 850px;
+}
+
+th, td {
+  padding: 12px;
+  border-bottom: 1px solid #e2e8f0;
+  text-align: left;
+  vertical-align: top;
+}
+
+th {
+  background: #064e3b;
+  color: white;
+}
+
+.delete-btn {
+  margin: 0;
+  padding: 7px 10px;
+  background: #dc2626;
+}
+
+footer {
+  text-align: center;
+  padding: 18px;
+  color: #64748b;
+}
+
+@media (max-width: 900px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+
+  .controls {
+    flex-direction: column;
+  }
+}
