@@ -1,16 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Buhisan Elementary School Online Attendance</title>
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <header class="topbar">
     <div>
       <h1>Buhisan Elementary School</h1>
-      <p>Centralized Online Attendance System</p>
+      <p>Online Attendance System</p>
     </div>
     <div class="clock-card">
       <div id="liveDate">Loading date...</div>
@@ -20,33 +20,76 @@
   </header>
 
   <main class="container">
-    <section class="card login-card">
-      <h2>Personnel Attendance</h2>
-      <p class="note">All attendance logs are sent to the centralized Google Sheet and email notification system.</p>
-
+    <section id="loginPanel" class="card login-card">
+      <h2>Personnel / Admin Login</h2>
       <label for="employeeName">Employee Name</label>
-      <input id="employeeName" type="text" placeholder="Enter complete name" autocomplete="name" />
+      <input id="employeeName" type="text" placeholder="Enter full name">
 
-      <label for="employeeEmail">Employee Email</label>
-      <input id="employeeEmail" type="email" placeholder="example@deped.gov.ph" autocomplete="email" />
+      <label for="employeeId">Employee ID / Position</label>
+      <input id="employeeId" type="text" placeholder="Example: Teacher I / AO II">
 
-      <label for="employeePosition">Position</label>
-      <input id="employeePosition" type="text" placeholder="Teacher I / AO II / Principal" />
+      <button id="employeeLoginBtn" class="btn primary">Continue as Personnel</button>
+      <hr>
+      <label for="adminUsername">Admin Username</label>
+      <input id="adminUsername" type="text" placeholder="Admin username">
+      <label for="adminPassword">Admin Password</label>
+      <input id="adminPassword" type="password" placeholder="Admin password">
+      <button id="adminLoginBtn" class="btn dark">Admin Login</button>
+      <p class="note">Default admin: <b>admin</b> / <b>BES-ADMIN-2026</b></p>
+    </section>
 
-      <div class="button-grid">
-        <button data-action="AM Log In" class="btn success">A.M. Log In</button>
-        <button data-action="AM Log Out" class="btn warning">A.M. Log Out</button>
-        <button data-action="PM Log In" class="btn success">P.M. Log In</button>
-        <button data-action="PM Log Out" class="btn warning">P.M. Log Out</button>
+    <section id="attendancePanel" class="card hidden">
+      <div class="panel-header">
+        <div>
+          <h2>Attendance Buttons</h2>
+          <p id="currentUserLabel"></p>
+        </div>
+        <button id="logoutBtn" class="btn light">Log Out Account</button>
       </div>
+      <div class="button-grid">
+        <button data-action="amIn" class="btn success">A.M. Log In</button>
+        <button data-action="amOut" class="btn warning">A.M. Log Out</button>
+        <button data-action="pmIn" class="btn success">P.M. Log In</button>
+        <button data-action="pmOut" class="btn warning">P.M. Log Out</button>
+      </div>
+      <p class="note">Date and time are automatically recorded using Philippine Standard Time and cannot be typed by ordinary users.</p>
+    </section>
 
-      <p class="note">Date and time are automatically recorded using Philippine Standard Time. Personnel cannot type or adjust the date/time.</p>
+    <section id="adminPanel" class="card hidden">
+      <div class="panel-header">
+        <div>
+          <h2>Admin Dashboard</h2>
+          <p>Only the admin can edit, delete, clear, and export records.</p>
+        </div>
+        <button id="adminLogoutBtn" class="btn light">Admin Log Out</button>
+      </div>
+      <div class="tools">
+        <input id="searchInput" type="text" placeholder="Search name, date, or position...">
+        <button id="exportCsvBtn" class="btn primary">Export CSV</button>
+        <button id="clearAllBtn" class="btn danger">Clear All</button>
+      </div>
     </section>
 
     <section class="card">
-      <h2>Submission Status</h2>
-      <p id="statusText">Ready.</p>
-      <p class="small-note">Admin email copy: ejalmario1795@gmail.com</p>
+      <h2>Attendance Records</h2>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Name</th>
+              <th>ID / Position</th>
+              <th>AM In</th>
+              <th>AM Out</th>
+              <th>PM In</th>
+              <th>PM Out</th>
+              <th>Time Zone</th>
+              <th class="admin-only hidden">Actions</th>
+            </tr>
+          </thead>
+          <tbody id="recordsBody"></tbody>
+        </table>
+      </div>
     </section>
   </main>
 
