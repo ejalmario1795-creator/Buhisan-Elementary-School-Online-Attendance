@@ -17,12 +17,43 @@
 
   <main class="container">
     <section class="card notice">
-      <strong>Reminder:</strong> This free version stores records only in the current browser using localStorage. For official school-wide use, connect it later to Google Sheets, Firebase, or a secure database.
+      <strong>Important:</strong> Regular users can only record attendance using the A.M./P.M. Log In and Log Out buttons. Only the admin can edit, delete, clear, or adjust attendance records. For official tamper-proof use, connect this later to Firebase or another secure server-side database and server time source.
+    </section>
+
+
+
+    <section class="card admin-card">
+      <div>
+        <h2>Admin Control Panel</h2>
+        <p id="adminStatus" class="admin-status">Admin access is locked. Regular users cannot edit or delete records.</p>
+      </div>
+      <div id="adminLoginBox" class="admin-login">
+        <input type="text" id="adminUsername" placeholder="Admin username" autocomplete="username" />
+        <input type="password" id="adminPassword" placeholder="Admin password" autocomplete="current-password" />
+        <button type="button" id="adminLoginBtn">Admin Log In</button>
+      </div>
+      <div id="adminLogoutBox" class="admin-login hidden">
+        <button type="button" id="adminLogoutBtn" class="secondary">Admin Log Out</button>
+      </div>
+    </section>
+
+    <section class="card clock-card">
+      <div>
+        <p class="clock-label">Live Location-Based Clock</p>
+        <h2 id="liveClock">Loading...</h2>
+        <p id="liveDate">Loading date...</p>
+      </div>
+      <div class="location-panel">
+        <small>Detected Time Zone</small>
+        <strong id="timezoneDisplay">Loading...</strong>
+        <small>Location Status</small>
+        <span id="locationStatus">Checking browser location permission...</span>
+      </div>
     </section>
 
     <section class="grid">
-      <form id="attendanceForm" class="card form-card">
-        <h2>Attendance Form</h2>
+      <section class="card form-card">
+        <h2>Attendance Log</h2>
 
         <label for="employeeName">Name</label>
         <input type="text" id="employeeName" placeholder="Enter full name" required />
@@ -38,40 +69,42 @@
           <option>Visitor</option>
         </select>
 
-        <label for="date">Date</label>
-        <input type="date" id="date" required />
+        <div class="readonly-box">
+          <small>System Date</small>
+          <strong id="currentDateDisplay">Loading...</strong>
+        </div>
 
-        <label for="timeIn">Time In</label>
-        <input type="time" id="timeIn" required />
+        <div class="readonly-box">
+          <small>System Time</small>
+          <strong id="currentTimeDisplay">Loading...</strong>
+        </div>
 
-        <label for="timeOut">Time Out</label>
-        <input type="time" id="timeOut" />
-
-        <label for="status">Status</label>
-        <select id="status" required>
-          <option>Present</option>
-          <option>Late</option>
-          <option>Official Business</option>
-          <option>On Leave</option>
-          <option>Absent</option>
-        </select>
+        <div class="readonly-box">
+          <small>Attendance Time Zone</small>
+          <strong id="attendanceTimezoneDisplay">Loading...</strong>
+        </div>
 
         <label for="remarks">Remarks</label>
         <textarea id="remarks" rows="3" placeholder="Optional remarks"></textarea>
 
-        <button type="submit">Submit Attendance</button>
-      </form>
+        <div class="button-group">
+          <button type="button" id="amLoginBtn">A.M. Log In</button>
+          <button type="button" id="amLogoutBtn">A.M. Log Out</button>
+          <button type="button" id="pmLoginBtn">P.M. Log In</button>
+          <button type="button" id="pmLogoutBtn">P.M. Log Out</button>
+        </div>
+      </section>
 
       <section class="card dashboard-card">
         <h2>Attendance Dashboard</h2>
         <div class="stats">
-          <div><span id="totalCount">0</span><small>Total Records</small></div>
-          <div><span id="presentCount">0</span><small>Present</small></div>
-          <div><span id="lateCount">0</span><small>Late</small></div>
+          <div><span id="totalCount">0</span><small>Total Daily Records</small></div>
+          <div><span id="completeCount">0</span><small>Complete Logs</small></div>
+          <div><span id="incompleteCount">0</span><small>Incomplete Logs</small></div>
         </div>
 
         <div class="controls">
-          <input type="text" id="searchInput" placeholder="Search name, role, or status" />
+          <input type="text" id="searchInput" placeholder="Search name, role, date, or remarks" />
           <button type="button" id="exportBtn">Export CSV</button>
           <button type="button" id="clearBtn" class="danger">Clear Records</button>
         </div>
@@ -83,9 +116,11 @@
                 <th>Date</th>
                 <th>Name</th>
                 <th>Role</th>
-                <th>Time In</th>
-                <th>Time Out</th>
-                <th>Status</th>
+                <th>A.M. In</th>
+                <th>A.M. Out</th>
+                <th>P.M. In</th>
+                <th>P.M. Out</th>
+                <th>Time Zone</th>
                 <th>Remarks</th>
                 <th>Action</th>
               </tr>
