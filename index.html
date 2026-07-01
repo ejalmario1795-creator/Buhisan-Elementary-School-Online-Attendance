@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Buhisan Elementary School Online Attendance</title>
-  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <header class="topbar">
@@ -21,19 +21,19 @@
 
   <main class="container">
     <section id="loginPanel" class="card login-card">
-      <h2>Log In</h2>
-      <label>Employee Name</label>
-      <input id="employeeName" type="text" placeholder="Enter full name" />
+      <h2>Personnel / Admin Login</h2>
+      <label for="employeeName">Employee Name</label>
+      <input id="employeeName" type="text" placeholder="Enter full name">
 
-      <label>Employee ID / Position</label>
-      <input id="employeeId" type="text" placeholder="Example: Teacher I / AO II" />
+      <label for="employeeId">Employee ID / Position</label>
+      <input id="employeeId" type="text" placeholder="Example: Teacher I / AO II">
 
       <button id="employeeLoginBtn" class="btn primary">Continue as Personnel</button>
-      <hr />
-      <label>Admin Username</label>
-      <input id="adminUsername" type="text" placeholder="Admin username" />
-      <label>Admin Password</label>
-      <input id="adminPassword" type="password" placeholder="Admin password" />
+      <hr>
+      <label for="adminUsername">Admin Username</label>
+      <input id="adminUsername" type="text" placeholder="Admin username">
+      <label for="adminPassword">Admin Password</label>
+      <input id="adminPassword" type="password" placeholder="Admin password">
       <button id="adminLoginBtn" class="btn dark">Admin Login</button>
       <p class="note">Default admin: <b>admin</b> / <b>BES-ADMIN-2026</b></p>
     </section>
@@ -46,14 +46,12 @@
         </div>
         <button id="logoutBtn" class="btn light">Log Out Account</button>
       </div>
-
       <div class="button-grid">
         <button data-action="amIn" class="btn success">A.M. Log In</button>
         <button data-action="amOut" class="btn warning">A.M. Log Out</button>
         <button data-action="pmIn" class="btn success">P.M. Log In</button>
         <button data-action="pmOut" class="btn warning">P.M. Log Out</button>
       </div>
-
       <p class="note">Date and time are automatically recorded using Philippine Standard Time and cannot be typed by ordinary users.</p>
     </section>
 
@@ -61,13 +59,12 @@
       <div class="panel-header">
         <div>
           <h2>Admin Dashboard</h2>
-          <p>Admin can edit, delete, clear, and export records.</p>
+          <p>Only the admin can edit, delete, clear, and export records.</p>
         </div>
         <button id="adminLogoutBtn" class="btn light">Admin Log Out</button>
       </div>
-
       <div class="tools">
-        <input id="searchInput" type="text" placeholder="Search name, date, or position..." />
+        <input id="searchInput" type="text" placeholder="Search name, date, or position...">
         <button id="exportCsvBtn" class="btn primary">Export CSV</button>
         <button id="clearAllBtn" class="btn danger">Clear All</button>
       </div>
@@ -97,6 +94,6 @@
   </main>
 
   <div id="toast" class="toast hidden"></div>
-  <script src="js/app.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
