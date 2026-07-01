@@ -4,138 +4,99 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Buhisan Elementary School Online Attendance</title>
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
-  <header class="hero">
+  <header class="topbar">
     <div>
-      <p class="small-title">Department of Education</p>
       <h1>Buhisan Elementary School</h1>
-      <p class="subtitle">Online Attendance Monitoring System</p>
+      <p>Online Attendance System</p>
+    </div>
+    <div class="clock-card">
+      <div id="liveDate">Loading date...</div>
+      <strong id="liveClock">Loading time...</strong>
+      <small>Philippine Standard Time</small>
     </div>
   </header>
 
   <main class="container">
-    <section class="card notice">
-      <strong>Important:</strong> Regular users can only record attendance using the A.M./P.M. Log In and Log Out buttons. Only the admin can edit, delete, clear, or adjust attendance records. For official tamper-proof use, connect this later to Firebase or another secure server-side database and server time source.
+    <section id="loginPanel" class="card login-card">
+      <h2>Log In</h2>
+      <label>Employee Name</label>
+      <input id="employeeName" type="text" placeholder="Enter full name" />
+
+      <label>Employee ID / Position</label>
+      <input id="employeeId" type="text" placeholder="Example: Teacher I / AO II" />
+
+      <button id="employeeLoginBtn" class="btn primary">Continue as Personnel</button>
+      <hr />
+      <label>Admin Username</label>
+      <input id="adminUsername" type="text" placeholder="Admin username" />
+      <label>Admin Password</label>
+      <input id="adminPassword" type="password" placeholder="Admin password" />
+      <button id="adminLoginBtn" class="btn dark">Admin Login</button>
+      <p class="note">Default admin: <b>admin</b> / <b>BES-ADMIN-2026</b></p>
     </section>
 
-
-
-    <section class="card admin-card">
-      <div>
-        <h2>Admin Control Panel</h2>
-        <p id="adminStatus" class="admin-status">Admin access is locked. Regular users cannot edit or delete records.</p>
+    <section id="attendancePanel" class="card hidden">
+      <div class="panel-header">
+        <div>
+          <h2>Attendance Buttons</h2>
+          <p id="currentUserLabel"></p>
+        </div>
+        <button id="logoutBtn" class="btn light">Log Out Account</button>
       </div>
-      <div id="adminLoginBox" class="admin-login">
-        <input type="text" id="adminUsername" placeholder="Admin username" autocomplete="username" />
-        <input type="password" id="adminPassword" placeholder="Admin password" autocomplete="current-password" />
-        <button type="button" id="adminLoginBtn">Admin Log In</button>
+
+      <div class="button-grid">
+        <button data-action="amIn" class="btn success">A.M. Log In</button>
+        <button data-action="amOut" class="btn warning">A.M. Log Out</button>
+        <button data-action="pmIn" class="btn success">P.M. Log In</button>
+        <button data-action="pmOut" class="btn warning">P.M. Log Out</button>
       </div>
-      <div id="adminLogoutBox" class="admin-login hidden">
-        <button type="button" id="adminLogoutBtn" class="secondary">Admin Log Out</button>
+
+      <p class="note">Date and time are automatically recorded using Philippine Standard Time and cannot be typed by ordinary users.</p>
+    </section>
+
+    <section id="adminPanel" class="card hidden">
+      <div class="panel-header">
+        <div>
+          <h2>Admin Dashboard</h2>
+          <p>Admin can edit, delete, clear, and export records.</p>
+        </div>
+        <button id="adminLogoutBtn" class="btn light">Admin Log Out</button>
+      </div>
+
+      <div class="tools">
+        <input id="searchInput" type="text" placeholder="Search name, date, or position..." />
+        <button id="exportCsvBtn" class="btn primary">Export CSV</button>
+        <button id="clearAllBtn" class="btn danger">Clear All</button>
       </div>
     </section>
 
-    <section class="card clock-card">
-      <div>
-        <p class="clock-label">Live Location-Based Clock</p>
-        <h2 id="liveClock">Loading...</h2>
-        <p id="liveDate">Loading date...</p>
+    <section class="card">
+      <h2>Attendance Records</h2>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Name</th>
+              <th>ID / Position</th>
+              <th>AM In</th>
+              <th>AM Out</th>
+              <th>PM In</th>
+              <th>PM Out</th>
+              <th>Time Zone</th>
+              <th class="admin-only hidden">Actions</th>
+            </tr>
+          </thead>
+          <tbody id="recordsBody"></tbody>
+        </table>
       </div>
-      <div class="location-panel">
-        <small>Detected Time Zone</small>
-        <strong id="timezoneDisplay">Loading...</strong>
-        <small>Location Status</small>
-        <span id="locationStatus">Checking browser location permission...</span>
-      </div>
-    </section>
-
-    <section class="grid">
-      <section class="card form-card">
-        <h2>Attendance Log</h2>
-
-        <label for="employeeName">Name</label>
-        <input type="text" id="employeeName" placeholder="Enter full name" required />
-
-        <label for="role">Role / Position</label>
-        <select id="role" required>
-          <option value="">Select role</option>
-          <option>School Head</option>
-          <option>Administrative Officer II</option>
-          <option>Teacher</option>
-          <option>Non-Teaching Personnel</option>
-          <option>Utility / Support Staff</option>
-          <option>Visitor</option>
-        </select>
-
-        <div class="readonly-box">
-          <small>System Date</small>
-          <strong id="currentDateDisplay">Loading...</strong>
-        </div>
-
-        <div class="readonly-box">
-          <small>System Time</small>
-          <strong id="currentTimeDisplay">Loading...</strong>
-        </div>
-
-        <div class="readonly-box">
-          <small>Attendance Time Zone</small>
-          <strong id="attendanceTimezoneDisplay">Loading...</strong>
-        </div>
-
-        <label for="remarks">Remarks</label>
-        <textarea id="remarks" rows="3" placeholder="Optional remarks"></textarea>
-
-        <div class="button-group">
-          <button type="button" id="amLoginBtn">A.M. Log In</button>
-          <button type="button" id="amLogoutBtn">A.M. Log Out</button>
-          <button type="button" id="pmLoginBtn">P.M. Log In</button>
-          <button type="button" id="pmLogoutBtn">P.M. Log Out</button>
-        </div>
-      </section>
-
-      <section class="card dashboard-card">
-        <h2>Attendance Dashboard</h2>
-        <div class="stats">
-          <div><span id="totalCount">0</span><small>Total Daily Records</small></div>
-          <div><span id="completeCount">0</span><small>Complete Logs</small></div>
-          <div><span id="incompleteCount">0</span><small>Incomplete Logs</small></div>
-        </div>
-
-        <div class="controls">
-          <input type="text" id="searchInput" placeholder="Search name, role, date, or remarks" />
-          <button type="button" id="exportBtn">Export CSV</button>
-          <button type="button" id="clearBtn" class="danger">Clear Records</button>
-        </div>
-
-        <div class="table-wrap">
-          <table>
-            <thead>
-              <tr>
-                <th>Date</th>
-                <th>Name</th>
-                <th>Role</th>
-                <th>A.M. In</th>
-                <th>A.M. Out</th>
-                <th>P.M. In</th>
-                <th>P.M. Out</th>
-                <th>Time Zone</th>
-                <th>Remarks</th>
-                <th>Action</th>
-              </tr>
-            </thead>
-            <tbody id="recordsTable"></tbody>
-          </table>
-        </div>
-      </section>
     </section>
   </main>
 
-  <footer>
-    <p>© 2026 Buhisan Elementary School | Online Attendance Template</p>
-  </footer>
-
-  <script src="script.js"></script>
+  <div id="toast" class="toast hidden"></div>
+  <script src="js/app.js"></script>
 </body>
 </html>
