@@ -173,6 +173,9 @@ window.deleteRecord = function(id){
 
 function csvEscape(value){ return '"' + String(value || "").replace(/"/g, '""') + '"'; }
 function exportCsv(){
+  function printPdf(){
+  window.print();
+}
   const records = getRecords();
   const rows = [["Date","Name","ID/Position","AM In","AM Out","PM In","PM Out","Time Zone"]];
   records.forEach(function(r){ rows.push([r.date,r.name,r.employeeId,r.amIn,r.amOut,r.pmIn,r.pmOut,r.timezone]); });
@@ -194,6 +197,7 @@ function setup(){
   byId("logoutBtn").addEventListener("click", logoutAll);
   byId("adminLogoutBtn").addEventListener("click", logoutAll);
   byId("exportCsvBtn").addEventListener("click", exportCsv);
+  byId("printPdfBtn").addEventListener("click", printPdf);
   byId("clearAllBtn").addEventListener("click", function(){
     if (!isAdmin) return;
     if (confirm("Clear all attendance records?")){
